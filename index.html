@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Generator</title>
+
+    
+    
+
+<style>
+    
+    
+    *{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+:root{
+    --primary:#000;
+    --secondary:#444;
+    --accent:#E89E0A;
+    --white:#fff;
+    --text:#aaa;
+    
+    
+    --xs:8px;
+    --sm:12px;
+    --ms:14px;
+    --md:16px;
+    --lg:20px;
+        
+}
+
+
+body{
+     background: var(--primary);
+     display: grid;
+     place-items: center;   
+    height: 100dvh;
+        
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+.container{
+    
+    padding: var(--lg);
+    height: auto;
+    width: 350px;
+    
+    background: var(--secondary);
+    
+    color: var(--white);
+    border-radius: var(--sm);
+    border: 1.5px solid var(--accent);
+    
+    box-shadow: 0 3px 20px var(--accent);
+}
+
+
+.container h2{
+    
+    font-weight: 800;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: -1px;
+    
+    
+    margin-bottom: var(--md);
+}
+
+
+.container p{
+    
+    font-weight: 400;
+    font-size: var(--md);
+    color: var(--text);
+    margin-bottom: var(--md);
+}
+
+
+.container button{
+    
+    width: 100%;
+    height: 45px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    
+    
+    
+    font-size: var(--md);
+    font-weight: 600;
+    background: var(--accent);
+    color: var(--white);
+    
+    transition:0.3s ease;
+}
+
+
+.container button:hover{
+    transform: scale(1.03);
+
+}
+ 
+
+.author{
+    text-align:right;
+    margin-bottom: var(--md);
+    font-weight: 400;
+    font-style: italic;
+}   
+    
+    
+    
+.highlight{
+    color: var(--accent);
+}
+    
+    
+</style>
+
+    
+    
+    
+</head>
+
+<body>
+
+
+<div class="container">
+
+    <h2>Random <span class='highlight'>Quotes</span></h2>
+
+    <p class="quote">
+        Click the button generate a quote...
+    </p>
+
+    <h4 class="author">-</h4>
+
+    <button id="btn">
+        Generate Quote
+    </button>
+
+</div>
+
+
+
+<script>
+    
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+const btn = document.getElementById('btn');
+
+
+
+        btn.addEventListener('click',async () => {
+                
+                btn.textContent = 'Loading...';
+                btn.disabled = true;
+         const data = await getquote();
+                
+                if(data){
+                        
+                
+                quote.textContent = data.quote;
+                author.textContent = data.author;
+                
+                }
+                btn.textContent = 'New quote';
+                btn.disabled = false;
+                
+                
+        });
+
+
+
+
+
+
+
+async function getquote() {
+        
+        try{
+                
+                
+        const response = await fetch('https://dummyjson.com/quotes/random');
+        
+        const data = await response.json();
+        
+        
+        return data;
+}
+
+catch{
+        console.log('Error ,fetching data');
+}
+
+}
+
+    
+</script>
+
+
+
+
+
+
+</body>
+</html>
